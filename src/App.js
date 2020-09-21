@@ -1,24 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useRef } from 'react'
 import './App.css';
+import InputForm from './inpForm';
+import Out from './out';
 
 function App() {
+  const [watchs, setWatchs] = useState([]);
+
+  const handleAdd = s => {
+    setWatchs(prevWatchs => [...prevWatchs, s.watch]);
+  }
+
+  const handleRemove = id => {
+    setWatchs(watchs.filter(o => o.id !== id));
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <InputForm onAdd={handleAdd}></InputForm>
+      <Out watchs={watchs} onRemove={handleRemove} />
     </div>
   );
 }
